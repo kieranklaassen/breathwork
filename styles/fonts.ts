@@ -1,3 +1,4 @@
+import { Cormorant_Garamond, Noto_Sans_JP } from 'next/font/google'
 import localFont from 'next/font/local'
 
 const mono = localFont({
@@ -22,7 +23,22 @@ const mono = localFont({
   ],
 })
 
-const fonts = [mono]
+const display = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['300', '400', '500'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+  variable: '--font-display',
+})
+
+const japanese = Noto_Sans_JP({
+  subsets: ['latin'],
+  weight: ['300', '400', '500'],
+  display: 'swap',
+  variable: '--font-japanese',
+})
+
+const fonts = [mono, display, japanese]
 const fontsVariable = fonts.map((font) => font.variable).join(' ')
 
 export { fontsVariable }

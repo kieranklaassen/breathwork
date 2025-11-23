@@ -16,6 +16,8 @@ interface WrapperProps extends React.HTMLAttributes<HTMLDivElement> {
   theme?: ThemeName
   lenis?: boolean | LenisOptions
   webgl?: boolean | Omit<ComponentProps<typeof Canvas>, 'children'>
+  navigation?: boolean
+  footer?: boolean
 }
 
 export function Wrapper({
@@ -24,6 +26,8 @@ export function Wrapper({
   className,
   lenis = true,
   webgl,
+  navigation = true,
+  footer = true,
   ...props
 }: WrapperProps) {
   const pathname = usePathname()
@@ -37,11 +41,11 @@ export function Wrapper({
           {...(typeof webgl === 'object' && webgl)}
         />
       )}
-      <Navigation />
+      {navigation && <Navigation />}
       <main className={cn('relative flex flex-col grow', className)} {...props}>
         {children}
       </main>
-      <Footer />
+      {footer && <Footer />}
       {lenis && <Lenis root options={typeof lenis === 'object' ? lenis : {}} />}
     </>
   )

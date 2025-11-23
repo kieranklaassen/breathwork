@@ -1,0 +1,64 @@
+.container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 24px;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      ellipse at 50% 40%,
+      rgba(248, 180, 196, 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 20% 80%,
+      rgba(168, 213, 186, 0.06) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      ellipse at 80% 80%,
+      rgba(184, 192, 255, 0.06) 0%,
+      transparent 40%
+    ), linear-gradient(180deg, #0a0d14 0%, #0f1318 100%);
+  display: grid;
+  place-items: center;
+  box-shadow:
+    0 32px 64px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    inset 0 0 80px rgba(248, 180, 196, 0.02);
+}
+
+.container canvas {
+  inset: 0;
+  position: absolute;
+}
+
+.ring {
+  position: absolute;
+  inset: 15%;
+  border-radius: 50%;
+  border: 1px solid rgba(248, 180, 196, 0.12);
+  pointer-events: none;
+  animation: pulse 4s ease-in-out infinite;
+}
+
+.ringOuter {
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  border: 1px solid rgba(168, 213, 186, 0.06);
+  pointer-events: none;
+  animation: pulse 4s ease-in-out infinite 1s;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.02);
+  }
+}
