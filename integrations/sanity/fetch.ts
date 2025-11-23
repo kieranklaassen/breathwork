@@ -25,6 +25,10 @@ export async function fetchSanity<T>(
     stega?: boolean
   } = {}
 ): Promise<T> {
+  if (!client) {
+    throw new Error('Sanity client is not configured')
+  }
+
   const signal = cacheSignal()
 
   return client.fetch<T>(query, params, {
