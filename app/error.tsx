@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react'
 import { Link } from '~/components/link'
-import { Wrapper } from './(pages)/(components)/wrapper'
 
 interface ErrorPageProps {
   error: Error & { digest?: string }
@@ -11,24 +10,54 @@ interface ErrorPageProps {
 
 export default function ErrorPage({ error, reset }: ErrorPageProps) {
   useEffect(() => {
-    // Log the error to an error reporting service
     console.error('Global error boundary caught:', error)
   }, [error])
 
   return (
-    <Wrapper theme="light" className="font-mono" webgl>
-      <div className="flex flex-col items-center justify-center dr-gap-y-24 my-auto uppercase">
-        <h1 className="mb-4 text-4xl font-bold">Something went wrong</h1>
-        <p className="mb-6 text-lg text-gray-600">
-          We're sorry, but something unexpected happened. Please try again.
+    <div
+      className="flex min-h-screen flex-col items-center justify-center px-4"
+      style={{
+        background:
+          'linear-gradient(180deg, #0a0a0f 0%, #12121a 50%, #0a0a0f 100%)',
+        color: '#e8e0e4',
+      }}
+    >
+      <div className="max-w-md text-center">
+        <p
+          className="mb-4 text-sm tracking-[0.3em] uppercase"
+          style={{ color: 'rgba(248, 180, 196, 0.6)' }}
+        >
+          息 · Error
+        </p>
+        <h1
+          className="mb-6 text-4xl font-light"
+          style={{ fontFamily: 'serif', fontStyle: 'italic' }}
+        >
+          Something went wrong
+        </h1>
+        <p
+          className="mb-8 text-base"
+          style={{ color: 'rgba(232, 224, 228, 0.7)' }}
+        >
+          Like a disrupted breath, sometimes we need to pause and begin again.
         </p>
 
         {process.env.NODE_ENV === 'development' && (
-          <details className="mb-6 text-left">
-            <summary className="cursor-pointer text-sm text-gray-500 hover:text-gray-700">
-              Error Details (Development Only)
+          <details className="mb-8 text-left">
+            <summary
+              className="cursor-pointer text-sm"
+              style={{ color: 'rgba(248, 180, 196, 0.6)' }}
+            >
+              Error Details
             </summary>
-            <pre className="mt-2 overflow-auto rounded bg-gray-100 p-4 text-xs">
+            <pre
+              className="mt-3 overflow-auto rounded-lg p-4 text-xs"
+              style={{
+                background: 'rgba(248, 180, 196, 0.05)',
+                border: '1px solid rgba(248, 180, 196, 0.15)',
+                color: 'rgba(232, 224, 228, 0.8)',
+              }}
+            >
               {error.message}
               {error.digest && `\nDigest: ${error.digest}`}
               {error.stack && `\n\n${error.stack}`}
@@ -36,22 +65,46 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
           </details>
         )}
 
-        <div className="flex gap-4 justify-center">
+        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
           <button
             onClick={reset}
             type="button"
-            className="rounded bg-black px-6 py-3 text-white hover:bg-gray-800 transition-colors"
+            style={{
+              padding: '0.875rem 2rem',
+              borderRadius: '9999px',
+              fontSize: '0.875rem',
+              background:
+                'linear-gradient(135deg, rgba(248, 180, 196, 0.15) 0%, rgba(201, 184, 224, 0.1) 100%)',
+              border: '1px solid rgba(248, 180, 196, 0.4)',
+              color: '#e8e0e4',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+            }}
           >
             Try Again
           </button>
           <Link
             href="/"
-            className="rounded border border-gray-300 px-6 py-3 hover:bg-gray-50 transition-colors"
+            style={{
+              display: 'inline-block',
+              padding: '0.875rem 2rem',
+              borderRadius: '9999px',
+              fontSize: '0.875rem',
+              background: 'transparent',
+              border: '1px solid rgba(232, 224, 228, 0.2)',
+              color: 'rgba(232, 224, 228, 0.7)',
+              textDecoration: 'none',
+              transition: 'all 0.3s ease',
+            }}
           >
-            Go Home
+            Return Home
           </Link>
         </div>
+
+        <div className="mt-16" style={{ fontSize: '2rem' }}>
+          🌸
+        </div>
       </div>
-    </Wrapper>
+    </div>
   )
 }

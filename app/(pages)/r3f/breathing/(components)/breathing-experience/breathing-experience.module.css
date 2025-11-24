@@ -116,8 +116,8 @@
 }
 
 .header {
-  padding: 1.5rem 1.25rem 0.75rem;
-  padding-top: max(1.5rem, env(safe-area-inset-top));
+  padding: 2rem 1.25rem 1.5rem;
+  padding-top: max(2rem, env(safe-area-inset-top));
 }
 
 .headerKanji {
@@ -125,16 +125,16 @@
   font-size: 0.7rem;
   letter-spacing: 0.35em;
   color: #f8b4c4;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.5rem;
   opacity: 0.7;
   font-weight: 300;
 }
 
 .headerTitle {
   font-family: var(--font-display), Georgia, serif;
-  font-size: 2.75rem;
+  font-size: 3rem;
   font-weight: 300;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   margin: 0;
   line-height: 1.1;
 }
@@ -145,7 +145,7 @@
   font-style: italic;
   font-size: 1.1rem;
   opacity: 0.85;
-  margin: 0.35rem 0 0;
+  margin: 0.35rem 0 0.5rem;
   font-weight: 300;
 }
 
@@ -184,28 +184,29 @@
 }
 
 .patternsSection {
-  margin: 1rem 0;
+  margin: 2.5rem 0 1.5rem;
 }
 
 .sectionTitle {
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
+  font-size: 0.55rem;
+  letter-spacing: 0.25em;
   color: #f8b4c4;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
   text-transform: uppercase;
-  opacity: 0.7;
+  opacity: 0.5;
+  font-weight: 300;
 }
 
 .patternsGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.6rem;
+  gap: 0.75rem;
 }
 
 .patternCard {
   padding: 0.875rem;
   background: rgba(255, 255, 255, 0.04);
-  border-radius: 14px;
+  border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.06);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -214,9 +215,9 @@
 
 .patternCard:hover {
   background: rgba(255, 255, 255, 0.08);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(248, 180, 196, 0.1);
-  border-color: rgba(248, 180, 196, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(248, 180, 196, 0.15);
+  border-color: rgba(248, 180, 196, 0.25);
 }
 
 .patternCard:active {
@@ -224,8 +225,9 @@
 }
 
 .patternCardActive {
-  background: rgba(248, 180, 196, 0.12);
-  border-color: rgba(248, 180, 196, 0.3);
+  background: rgba(248, 180, 196, 0.15);
+  border-color: rgba(248, 180, 196, 0.4);
+  box-shadow: 0 4px 16px rgba(248, 180, 196, 0.12);
 }
 
 .patternHeader {
@@ -512,14 +514,240 @@
   margin-top: 1rem;
 }
 
+.startSection {
+  display: flex;
+  justify-content: center;
+  margin: 3.5rem 0 3.5rem;
+  grid-column: 1 / -1;
+  position: relative;
+}
+
+/* Flowing energy particles */
+.flowContainer {
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 120px;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.flowParticle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(248, 180, 196, 0.8) 0%,
+    rgba(248, 180, 196, 0) 70%
+  );
+  filter: blur(1px);
+  animation: flow-down 2.5s ease-in-out infinite;
+  opacity: 0;
+}
+
+.flowParticle:nth-child(1) {
+  left: 20%;
+  animation-delay: 0s;
+}
+.flowParticle:nth-child(2) {
+  left: 40%;
+  animation-delay: 0.4s;
+}
+.flowParticle:nth-child(3) {
+  left: 60%;
+  animation-delay: 0.8s;
+}
+.flowParticle:nth-child(4) {
+  left: 80%;
+  animation-delay: 1.2s;
+}
+.flowParticle:nth-child(5) {
+  left: 30%;
+  animation-delay: 1.6s;
+}
+.flowParticle:nth-child(6) {
+  left: 50%;
+  animation-delay: 0.2s;
+}
+.flowParticle:nth-child(7) {
+  left: 70%;
+  animation-delay: 0.6s;
+}
+
+@keyframes flow-down {
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+    transform: translateY(20px) scale(1);
+  }
+  60% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(130px) scale(0.3);
+    opacity: 0;
+  }
+}
+
+/* Wind stream effect */
+.windStream {
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 160px;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(248, 180, 196, 0) 0%,
+    rgba(248, 180, 196, 0.05) 30%,
+    rgba(201, 184, 224, 0.08) 50%,
+    rgba(168, 213, 186, 0.05) 70%,
+    rgba(248, 180, 196, 0) 100%
+  );
+  filter: blur(20px);
+  animation: wind-flow 3s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+@keyframes wind-flow {
+  0%,
+  100% {
+    transform: translateX(-50%) scaleY(1) scaleX(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateX(-50%) scaleY(1.1) scaleX(1.2);
+    opacity: 0.7;
+  }
+}
+
+.startButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 4.5rem;
+  border: 2px solid rgba(248, 180, 196, 0.6);
+  border-radius: 3.5rem;
+  background: linear-gradient(
+    135deg,
+    rgba(248, 180, 196, 0.12) 0%,
+    rgba(248, 180, 196, 0.08) 50%,
+    rgba(201, 184, 224, 0.1) 100%
+  );
+  color: #e8e0e4;
+  cursor: pointer;
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease,
+    border-color 0.3s ease;
+  gap: 0.35rem;
+  box-shadow: 0 4px 24px rgba(248, 180, 196, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.startButton::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 50%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+@keyframes gentle-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 8px 32px rgba(248, 180, 196, 0.15),
+      0 0 0 0 rgba(248, 180, 196, 0);
+  }
+  50% {
+    box-shadow:
+      0 10px 36px rgba(248, 180, 196, 0.2),
+      0 0 0 6px rgba(248, 180, 196, 0.06);
+  }
+}
+
+.startButton:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(248, 180, 196, 0.18) 0%,
+    rgba(248, 180, 196, 0.12) 50%,
+    rgba(201, 184, 224, 0.14) 100%
+  );
+  transform: scale(1.03) translateY(-2px);
+  border-color: rgba(248, 180, 196, 0.8);
+  box-shadow: 0 8px 32px rgba(248, 180, 196, 0.2);
+}
+
+.startButton:hover::before {
+  opacity: 1;
+}
+
+.startButton:active {
+  transform: scale(1.02) translateY(0);
+  background: linear-gradient(
+    135deg,
+    rgba(248, 180, 196, 0.22) 0%,
+    rgba(248, 180, 196, 0.15) 50%,
+    rgba(201, 184, 224, 0.18) 100%
+  );
+}
+
+.startButtonText {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.65rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-shadow: 0 2px 12px rgba(248, 180, 196, 0.3);
+  position: relative;
+  z-index: 1;
+}
+
+.startButtonSubtext {
+  font-size: 0.85rem;
+  color: #f8b4c4;
+  opacity: 0.9;
+  letter-spacing: 0.05em;
+  position: relative;
+  z-index: 1;
+  font-weight: 300;
+}
+
 .emptyState {
   text-align: center;
-  padding: 2rem 1rem;
+  padding: 1.5rem 1rem 3rem;
 }
 
 .emptyIcon {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-bottom: 1rem;
+  opacity: 0.8;
+  animation: float-gently 4s ease-in-out infinite;
+}
+
+@keyframes float-gently {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
 .emptyTitle {
@@ -534,11 +762,11 @@
   font-family: var(--font-display), Georgia, serif;
   color: #a8d5ba;
   font-style: italic;
-  max-width: 280px;
+  max-width: 300px;
   margin: 0 auto;
-  line-height: 1.7;
-  opacity: 0.85;
-  font-size: 0.95rem;
+  line-height: 1.8;
+  opacity: 0.7;
+  font-size: 0.9rem;
   font-weight: 300;
 }
 
