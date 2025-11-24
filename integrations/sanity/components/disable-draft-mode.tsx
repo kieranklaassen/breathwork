@@ -19,7 +19,7 @@ export function DisableDraftMode() {
 
   return (
     <Link
-      href="/api/draft-mode/disable"
+      href={'/api/draft-mode/disable' as '/'}
       scroll={false}
       className="fixed right-safe top-safe bg-red text-primary uppercase dr-p-4 font-mono text-sm z-50"
     >

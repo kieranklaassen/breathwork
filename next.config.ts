@@ -158,7 +158,7 @@ const nextConfig: NextConfig = {
   rewrites: async () => [
     {
       source: '/',
-      destination: '/home',
+      destination: '/r3f/breathing',
     },
   ],
 }

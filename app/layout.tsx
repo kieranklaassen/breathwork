@@ -5,7 +5,6 @@ import type { PropsWithChildren } from 'react'
 import { ReactTempus } from 'tempus/react'
 import { RealViewport } from '~/components/real-viewport'
 import { DisableDraftMode } from '~/integrations/sanity/components/disable-draft-mode'
-import AppData from '~/package.json'
 import { themes } from '~/styles/colors'
 import '~/styles/css/index.css'
 
@@ -15,10 +14,10 @@ import { SanityLive } from '~/integrations/sanity/live'
 import { OrchestraTools } from '~/orchestra'
 import { fontsVariable } from '~/styles/fonts'
 
-const APP_NAME = AppData.name
-const APP_DEFAULT_TITLE = 'Satūs'
-const APP_TITLE_TEMPLATE = '%s - Satūs'
-const APP_DESCRIPTION = AppData.description
+const APP_NAME = 'Breathe'
+const APP_DEFAULT_TITLE = 'Breathe'
+const APP_TITLE_TEMPLATE = '%s - Breathe'
+const APP_DESCRIPTION = 'A mindful breathing exercise app'
 const APP_BASE_URL =
   process.env.NEXT_PUBLIC_BASE_URL ?? 'https://localhost:3000'
 

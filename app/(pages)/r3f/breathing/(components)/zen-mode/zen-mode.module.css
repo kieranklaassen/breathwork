@@ -1,0 +1,165 @@
+.container {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background:
+    radial-gradient(
+      ellipse at 50% 30%,
+      color-mix(in srgb, var(--accent) 12%, transparent) 0%,
+      transparent 60%
+    ), linear-gradient(180deg, #1a1f2e 0%, #0f1419 50%, #1a1520 100%);
+  display: flex;
+  flex-direction: column;
+  font-family:
+    "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #e8e0e4;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  padding-top: max(1rem, env(safe-area-inset-top));
+}
+
+.audioButton {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.audioButton:hover {
+  opacity: 1;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: #f8b4c4;
+  cursor: pointer;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+}
+
+.closeButton:hover {
+  opacity: 1;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.patternInfo {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.patternName {
+  color: #f8b4c4;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.phaseLabel {
+  font-size: 2.25rem;
+  font-weight: 300;
+  font-style: italic;
+  margin: 0 0 2rem;
+  text-align: center;
+}
+
+.waveContainer {
+  width: 100%;
+  max-width: 380px;
+  margin-bottom: 1.5rem;
+}
+
+.cycleInfo {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  opacity: 0.7;
+  font-size: 0.9rem;
+}
+
+.stats {
+  display: flex;
+  gap: 3rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.statValue {
+  font-size: 2rem;
+  font-weight: 300;
+}
+
+.statLabel {
+  color: #f8b4c4;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.playButton {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 2px solid var(--accent, #f8b4c4);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.playButton:hover {
+  transform: scale(1.05);
+}
+
+.completeButton {
+  padding: 0.75rem 1.75rem;
+  border: 1px solid;
+  border-radius: 2rem;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.completeButton:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.footer {
+  text-align: center;
+  padding: 1rem;
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+  color: #f8b4c4;
+  font-size: 0.6rem;
+  opacity: 0.3;
+}
