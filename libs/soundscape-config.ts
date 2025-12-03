@@ -76,4 +76,5 @@ export const SOUNDSCAPE_CONFIG = {
 
 // Type helpers
 export type PhaseType = keyof typeof SOUNDSCAPE_CONFIG.phaseTones
-export type DroneLayer = (typeof SOUNDSCAPE_CONFIG.milestones)[MilestoneMinutes]['layers'][number]
+export type DroneLayer =
+  (typeof SOUNDSCAPE_CONFIG.milestones)[MilestoneMinutes]['layers'][number]
