@@ -7,13 +7,13 @@ export const SOUNDSCAPE_CONFIG = {
   // Root note for entire soundscape
   root: 'C2', // 65.41 Hz - low, grounding foundation
 
-  // Phase tones (harmonize with drone)
+  // Phase tones (one octave above drone for clarity)
   phaseTones: {
-    inhale: 'G2', // Perfect 5th - rising, aspirational
-    exhale: 'C2', // Root - grounding, release
-    holdIn: 'E2', // Major 3rd - warm, stable
-    holdOut: 'E2', // Major 3rd - warm, stable
-    complete: ['C3', 'G3'] as const, // Octave rise - celebratory
+    inhale: 'G3', // Perfect 5th - rising, aspirational
+    exhale: 'C3', // Root octave - grounding, release
+    holdIn: 'E3', // Major 3rd - warm, stable
+    holdOut: 'E3', // Major 3rd - warm, stable
+    complete: ['C4', 'G4'] as const, // Two octaves up - celebratory
   },
 
   // Milestone layers - additive harmony progression
