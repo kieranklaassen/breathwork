@@ -20,6 +20,9 @@ interface BreathingState {
   cycleCount: number
   sessionTime: number
 
+  // UI state
+  showPatternSelection: boolean
+
   // Pattern state
   selectedPattern: string
   customPattern: BreathingPattern | null
@@ -54,6 +57,8 @@ interface BreathingState {
   saveSettings: () => void
   adjustCycleSpeed: (delta: number) => void
   adjustPhase: (phase: BreathingPhaseKey, delta: number) => void
+  setShowPatternSelection: (show: boolean) => void
+  startPattern: (patternKey: string) => void
 }
 
 const STORAGE_KEY = 'breathing-storage'
@@ -140,6 +145,8 @@ const getInitialBaseState = (): Omit<
   | 'saveSettings'
   | 'adjustCycleSpeed'
   | 'adjustPhase'
+  | 'setShowPatternSelection'
+  | 'startPattern'
 > => {
   const defaultPattern = BREATHING_PATTERNS[DEFAULT_PATTERN_KEY]
 
@@ -149,6 +156,7 @@ const getInitialBaseState = (): Omit<
     currentTime: 0,
     cycleCount: 1,
     sessionTime: 0,
+    showPatternSelection: true,
     selectedPattern: DEFAULT_PATTERN_KEY,
     customPattern: null,
     draftPhases: clonePhases(defaultPattern.phases),
@@ -349,6 +357,32 @@ export const useBreathingStore = create<BreathingState>()(
                 settingsSaved: false,
               }
             }, 'adjustPhase')(setWithAction),
+          setShowPatternSelection: (show) =>
+            setWithAction(
+              { showPatternSelection: show },
+              false,
+              'setShowPatternSelection'
+            ),
+          startPattern: (patternKey) =>
+            withDerived(() => {
+              const preset =
+                BREATHING_PATTERNS[patternKey] ??
+                BREATHING_PATTERNS[DEFAULT_PATTERN_KEY]
+              return {
+                selectedPattern: patternKey,
+                customPattern: null,
+                draftPhases: clonePhases(preset.phases),
+                draftMethods: { ...preset.methods },
+                settingsSaved: true,
+                cycleSpeedAdjustment: 0,
+                showPatternSelection: false,
+                isPlaying: true,
+                currentPhase: 'inhale' as BreathPhase,
+                cycleCount: 1,
+                sessionTime: 0,
+                currentTime: 0,
+              }
+            }, 'startPattern')(setWithAction),
         }
 
         return initialState

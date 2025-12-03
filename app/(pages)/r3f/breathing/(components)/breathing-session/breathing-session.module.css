@@ -1,0 +1,306 @@
+.container {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background:
+    radial-gradient(
+      ellipse at 50% 30%,
+      color-mix(in srgb, var(--accent) 12%, transparent) 0%,
+      transparent 60%
+    ), linear-gradient(180deg, #1a1f2e 0%, #0f1419 50%, #1a1520 100%);
+  display: flex;
+  flex-direction: column;
+  font-family:
+    "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #e8e0e4;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  padding-top: max(1.5rem, env(safe-area-inset-top));
+}
+
+.patternInfo {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.patternName {
+  color: #f8b4c4;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.phaseLabel {
+  font-size: 2.5rem;
+  font-weight: 300;
+  font-style: italic;
+  margin: 0 0 2rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.methodIcon {
+  font-size: 1.25rem;
+}
+
+.waveContainer {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 1.5rem;
+}
+
+.cycleInfo {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  opacity: 0.7;
+  font-size: 0.9rem;
+}
+
+.stats {
+  display: flex;
+  gap: 3rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.statValue {
+  font-size: 2rem;
+  font-weight: 300;
+}
+
+.statLabel {
+  color: #f8b4c4;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+/* Controls container - hidden by default, shown on hover/tap */
+.controls {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+
+  /* Hidden by default */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition:
+    opacity 300ms ease,
+    visibility 0s linear 300ms,
+    transform 300ms ease;
+}
+
+.controlsVisible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition:
+    opacity 300ms ease,
+    visibility 0s linear 0s,
+    transform 300ms ease;
+}
+
+.speedControls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.speedButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(248, 180, 196, 0.4);
+  background: rgba(248, 180, 196, 0.08);
+  color: #f8b4c4;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 300;
+  transition: all 0.2s ease;
+}
+
+.speedButton:hover {
+  background: rgba(248, 180, 196, 0.15);
+  border-color: rgba(248, 180, 196, 0.6);
+  transform: scale(1.05);
+}
+
+.speedButton:active {
+  transform: scale(0.95);
+}
+
+.speedLabel {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #f8b4c4;
+  opacity: 0.6;
+  min-width: 40px;
+  text-align: center;
+}
+
+.mainControls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.controlButton {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(248, 180, 196, 0.3);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: #f8b4c4;
+  transition: all 0.2s ease;
+}
+
+.controlButton:hover {
+  background: rgba(248, 180, 196, 0.1);
+  border-color: rgba(248, 180, 196, 0.5);
+  transform: scale(1.05);
+}
+
+.controlButton:active {
+  transform: scale(0.95);
+}
+
+.controlButtonActive {
+  background: rgba(248, 180, 196, 0.15);
+}
+
+.playButton {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 2px solid var(--accent, #f8b4c4);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent, #f8b4c4);
+  transition: all 0.2s ease;
+}
+
+.playButton:hover {
+  transform: scale(1.05);
+  background: rgba(248, 180, 196, 0.1);
+}
+
+.playButtonActive {
+  background: var(--accent, #f8b4c4);
+  color: #1a1f2e;
+}
+
+.completeButton {
+  padding: 0.75rem 1.75rem;
+  border: 1px solid;
+  border-radius: 2rem;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.completeButton:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 1rem;
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  color: #f8b4c4;
+  font-size: 0.6rem;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 300ms ease,
+    visibility 0s linear 300ms;
+  pointer-events: none;
+}
+
+.footerVisible {
+  opacity: 0.3;
+  visibility: visible;
+  transition:
+    opacity 300ms ease,
+    visibility 0s linear 0s;
+}
+
+/* Tablet breakpoint */
+@media (min-width: 768px) {
+  .phaseLabel {
+    font-size: 3rem;
+  }
+
+  .waveContainer {
+    max-width: 450px;
+  }
+
+  .stats {
+    gap: 4rem;
+  }
+
+  .statValue {
+    font-size: 2.5rem;
+  }
+}
+
+/* Desktop breakpoint */
+@media (min-width: 1024px) {
+  .phaseLabel {
+    font-size: 3.5rem;
+  }
+
+  .waveContainer {
+    max-width: 500px;
+  }
+
+  .playButton {
+    width: 80px;
+    height: 80px;
+  }
+}
