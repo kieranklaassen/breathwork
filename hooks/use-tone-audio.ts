@@ -66,7 +66,8 @@ export function useToneAudio(enabled: boolean) {
         if (!synth) return
 
         // Set volume for this note
-        synth.volume.value = volumes[index] ?? SOUNDSCAPE_CONFIG.volumes.phaseTones
+        synth.volume.value =
+          volumes[index] ?? SOUNDSCAPE_CONFIG.volumes.phaseTones
 
         // Schedule note with stagger
         const triggerTime = Tone.now() + index * stagger

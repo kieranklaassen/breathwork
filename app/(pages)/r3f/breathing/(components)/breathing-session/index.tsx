@@ -89,6 +89,13 @@ export function BreathingSession({ driver }: BreathingSessionProps) {
     }
   }, [sessionTime, soundscape.milestone, soundscape.isPlaying, soundscape])
 
+  // Handle cycle-based progression - creates musical movement every ~10 cycles
+  useEffect(() => {
+    if (!(audioEnabledRef.current && soundscape.isPlaying)) return
+
+    soundscape.progressCycle(cycleCount)
+  }, [cycleCount, soundscape])
+
   // Start/stop soundscape with session playback
   useEffect(() => {
     if (isPlaying && audioEnabledRef.current && !soundscape.isPlaying) {
