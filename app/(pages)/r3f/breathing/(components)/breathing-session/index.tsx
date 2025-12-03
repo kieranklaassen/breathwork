@@ -39,11 +39,15 @@ const PHASE_LABELS: Record<BreathPhase, string> = {
 }
 
 // Calculate current milestone based on session time (pure function, outside component)
+// Milestones: 0, 3, 5, 10, 15, 20, 30 minutes - inspired by Richter's "Sleep" progression
 const getCurrentMilestone = (timeMs: number): MilestoneMinutes => {
   const minutes = timeMs / 60000
+  if (minutes >= 30) return 30
   if (minutes >= 20) return 20
+  if (minutes >= 15) return 15
   if (minutes >= 10) return 10
   if (minutes >= 5) return 5
+  if (minutes >= 3) return 3
   return 0
 }
 
@@ -74,16 +78,14 @@ export function BreathingSession({ driver }: BreathingSessionProps) {
   const audio = useToneAudio(audioEnabledRef.current)
   const soundscape = useSoundscape()
 
-  // Handle milestone evolution
+  // Handle milestone evolution - triggers at 3, 5, 10, 15, 20, 30 minutes
   useEffect(() => {
     if (!(audioEnabledRef.current && soundscape.isPlaying)) return
 
     const currentMilestone = getCurrentMilestone(sessionTime)
 
     if (currentMilestone > soundscape.milestone) {
-      if (currentMilestone === 5) soundscape.evolve(5)
-      else if (currentMilestone === 10) soundscape.evolve(10)
-      else if (currentMilestone === 20) soundscape.evolve(20)
+      soundscape.evolve(currentMilestone)
     }
   }, [sessionTime, soundscape.milestone, soundscape.isPlaying, soundscape])
 
