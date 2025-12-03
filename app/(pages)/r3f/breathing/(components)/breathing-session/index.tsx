@@ -3,12 +3,13 @@
 import cn from 'clsx'
 import { useEffect, useRef, useState } from 'react'
 
-import { useAudio } from '~/hooks/use-audio'
 import {
   type FrameDriver,
   useBreathingTimer,
 } from '~/hooks/use-breathing-timer'
 import { useIdleControls } from '~/hooks/use-idle-controls'
+import { useSoundscape } from '~/hooks/use-soundscape'
+import { useToneAudio } from '~/hooks/use-tone-audio'
 import {
   BREATHING_PATTERNS,
   type BreathingPattern,
@@ -19,6 +20,7 @@ import {
   useIsPlaying,
   useTotalCycleTime,
 } from '~/libs/breathing-store'
+import type { MilestoneMinutes } from '~/libs/soundscape-config'
 
 import { BreathingWave } from '../breathing-wave'
 
@@ -34,6 +36,15 @@ const PHASE_LABELS: Record<BreathPhase, string> = {
   'hold-in': 'Rest',
   exhale: 'Release',
   'hold-out': 'Rest',
+}
+
+// Calculate current milestone based on session time (pure function, outside component)
+const getCurrentMilestone = (timeMs: number): MilestoneMinutes => {
+  const minutes = timeMs / 60000
+  if (minutes >= 20) return 20
+  if (minutes >= 10) return 10
+  if (minutes >= 5) return 5
+  return 0
 }
 
 export function BreathingSession({ driver }: BreathingSessionProps) {
@@ -60,7 +71,30 @@ export function BreathingSession({ driver }: BreathingSessionProps) {
   const adjustCycleSpeed = useBreathingStore((state) => state.adjustCycleSpeed)
 
   const timer = useBreathingTimer({ driver })
-  const audio = useAudio(audioEnabledRef.current)
+  const audio = useToneAudio(audioEnabledRef.current)
+  const soundscape = useSoundscape()
+
+  // Handle milestone evolution
+  useEffect(() => {
+    if (!(audioEnabledRef.current && soundscape.isPlaying)) return
+
+    const currentMilestone = getCurrentMilestone(sessionTime)
+
+    if (currentMilestone > soundscape.milestone) {
+      if (currentMilestone === 5) soundscape.evolve(5)
+      else if (currentMilestone === 10) soundscape.evolve(10)
+      else if (currentMilestone === 20) soundscape.evolve(20)
+    }
+  }, [sessionTime, soundscape.milestone, soundscape.isPlaying, soundscape])
+
+  // Start/stop soundscape with session playback
+  useEffect(() => {
+    if (isPlaying && audioEnabledRef.current && !soundscape.isPlaying) {
+      soundscape.start()
+    } else if (!isPlaying && soundscape.isPlaying) {
+      soundscape.stop()
+    }
+  }, [isPlaying, soundscape])
 
   const pattern: BreathingPattern =
     BREATHING_PATTERNS[selectedPattern] ?? BREATHING_PATTERNS.coherent
@@ -85,13 +119,14 @@ export function BreathingSession({ driver }: BreathingSessionProps) {
         }
       }
       if (e.code === 'Escape') {
+        soundscape.stop()
         reset()
         setShowPatternSelection(true)
       }
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [isPlaying, pause, play, reset, setShowPatternSelection])
+  }, [isPlaying, pause, play, reset, setShowPatternSelection, soundscape])
 
   const handleTogglePlayback = () => {
     if (isPlaying) {
@@ -101,20 +136,33 @@ export function BreathingSession({ driver }: BreathingSessionProps) {
     }
   }
 
-  const handleToggleAudio = () => {
-    setAudioEnabled((prev) => !prev)
-    audioEnabledRef.current = !audioEnabledRef.current
+  const handleToggleAudio = async () => {
+    const newState = !audioEnabledRef.current
+    setAudioEnabled(newState)
+    audioEnabledRef.current = newState
+
+    // Handle soundscape start/stop based on new audio state
+    if (newState && isPlaying) {
+      // Audio enabled mid-session: resume soundscape at correct milestone
+      const currentMilestone = getCurrentMilestone(sessionTime)
+      await soundscape.resumeAtMilestone(currentMilestone)
+    } else if (!newState && soundscape.isPlaying) {
+      // Audio disabled: stop soundscape
+      soundscape.stop()
+    }
   }
 
   const handleChangePattern = () => {
+    soundscape.stop()
     reset()
     setShowPatternSelection(true)
   }
 
   const handleComplete = () => {
-    if (sessionTime >= 10000) {
+    if (sessionTime >= 10000 && audioEnabledRef.current) {
       audio.complete()
     }
+    soundscape.stop()
     reset()
     setShowPatternSelection(true)
   }
