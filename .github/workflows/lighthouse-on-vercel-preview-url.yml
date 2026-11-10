@@ -49,7 +49,7 @@ jobs:
 
       - name: Capture Vercel preview URL
         id: vercel_preview_url
-        uses: zentered/vercel-preview-url@v1.4.0
+        uses: zentered/vercel-preview-url@v1.4.1
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         with:
